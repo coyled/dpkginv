@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'ohai'
+require 'json'
+require 'open4'
+
+Ohai::Config[:plugin_path] << File.dirname(__FILE__) + '/../plugins/ohai'
+o = Ohai::System.new
+
+# ohai has dozens of plugins; let's only load the ones we need...
+o.require_plugin('linux/lsb')
+o.require_plugin('linux/hostname')
+o.require_plugin('os')
+o.require_plugin('platform')
+o.require_plugin('kernel')
+o.require_plugin('dpkg')
+
+distro = o[:platform] 
+
+json = {
+    :fqdn   =>  o[:fqdn],
+    :os     =>  {
+        :distro     =>  distro,
+        :codename   =>  o[:lsb][:codename]
+    },
+    :kernel =>  {
+        :release    =>  o[:kernel][:release],
+        :machine    =>  o[:kernel][:machine]
+    },
+    :dpkg   =>  o[:dpkg]
+}
+
+puts JSON.pretty_generate(json)
