@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'ohai'
 require 'json'
 require 'open4'
+require 'yaml'
 
 Ohai::Config[:plugin_path] << File.dirname(__FILE__) + '/../plugins/ohai'
 o = Ohai::System.new
@@ -16,12 +17,20 @@ o.require_plugin('platform')
 o.require_plugin('kernel')
 o.require_plugin('dpkg')
 
-distro = o[:platform] 
+#
+# load system_id from external file,  but it's not required if you
+# just want a JSON representation of your packages.  it can be set by
+# config management, etc.
+#
+config_file = '/etc/dpkginv.conf'
+if File.exists?(config_file)
+    config = YAML.load_file(config_file)
+end
 
 json = {
     :fqdn   =>  o[:fqdn],
     :os     =>  {
-        :distro     =>  distro,
+        :distro     =>  o[:platform],
         :codename   =>  o[:lsb][:codename]
     },
     :kernel =>  {
@@ -30,5 +39,9 @@ json = {
     },
     :dpkg   =>  o[:dpkg]
 }
+
+if config['system_id']
+    json[:dpkginv_system_id] = config['system_id']
+end
 
 puts JSON.pretty_generate(json)
