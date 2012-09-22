@@ -8,11 +8,18 @@ dpkg Mash.new
 
 popen4("dpkg-query -W -f '${Status}|${Package}|${Version}|${Architecture}\n'") do |pid, stdin, stdout, stderr|
     stdout.each do |line|
-        output = line.split('|')
-        name = output[1]
+        #
+        # example dpkg output:
+        #       install ok installed|manpages|3.35-0.1ubuntu1|all
+        #
+
+        line.chomp
+        selection_status, null, install_status, name, version, arch = line.split(%r{\||\s})
+
         dpkg[name] = Mash.new
-        dpkg[name][:selection_status], null, dpkg[name][:install_status] = output[0].split
-        dpkg[name][:version] = output[2].to_s
-        dpkg[name][:arch] = output[3].chomp
+        dpkg[name][:selection_status] = selection_status
+        dpkg[name][:install_status] = install_status
+        dpkg[name][:version] = version.to_s
+        dpkg[name][:arch] = arch
     end
 end
