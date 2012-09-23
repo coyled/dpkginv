@@ -5,6 +5,7 @@ require 'ohai'
 require 'json'
 require 'open4'
 require 'yaml'
+require 'time'
 
 Ohai::Config[:plugin_path] << File.dirname(__FILE__) + '/../plugins/ohai'
 o = Ohai::System.new
@@ -37,11 +38,12 @@ json = {
         :release    =>  o[:kernel][:release],
         :machine    =>  o[:kernel][:machine]
     },
-    :dpkg   =>  o[:dpkg]
+    :dpkg   =>  o[:dpkg],
+    :created_at => Time.now.iso8601
 }
 
 if config['system_id']
-    json[:dpkginv_system_id] = config['system_id']
+    json[:system_id] = config['system_id']
 end
 
 puts JSON.pretty_generate(json)
