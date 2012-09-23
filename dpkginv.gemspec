@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
     s.name          = 'dpkginv'
     s.version       = '0.1.0'
     s.summary       = 'Debian/Ubuntu package inventory tools'
-    s.description   = 'Read OS package inventory, emit JSON'
+    s.description   = 'Read Debian/Ubuntu package inventory, emit as JSON'
     s.authors       = ['Dave Coyle']
     s.email         = 'hello@coyled.com'
     s.homepage      = 'https://github.com/coyled/dpkginv'
