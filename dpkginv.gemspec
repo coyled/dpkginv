@@ -12,5 +12,6 @@ Gem::Specification.new do |s|
     s.test_files    = `git ls-files -- test/*`.split("\n")
     s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
 
-    s.add_runtime_dependency    'ohai', '~> 6.14'
+    s.add_runtime_dependency    'ohai'
+    s.add_runtime_dependency    'json'
 end

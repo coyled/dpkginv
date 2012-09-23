@@ -1,13 +1,15 @@
 PATH
   remote: .
   specs:
-    dpkginv (0.1.0)
-      ohai (~> 6.14)
+    dpkginv (0.1.1)
+      json
+      ohai
 
 GEM
   remote: http://rubygems.org/
   specs:
     ipaddress (0.8.0)
+    json (1.7.4)
     mixlib-cli (1.2.2)
     mixlib-config (1.1.2)
     mixlib-log (1.4.1)
