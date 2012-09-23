@@ -15,16 +15,6 @@ o.require_plugin('linux/hostname')
 o.require_plugin('kernel')
 o.require_plugin('dpkg')
 
-#
-# load system_id from external file,  but it's not required if you
-# just want a JSON representation of your packages.  it can be set by
-# config management, etc.
-#
-config_file = '/etc/dpkginv.conf'
-if File.exists?(config_file)
-    config = YAML.load_file(config_file)
-end
-
 json = {
     :fqdn   =>  o[:fqdn],
     :lsb     =>  {
@@ -41,8 +31,17 @@ json = {
     :created_at => Time.now.iso8601
 }
 
-if config['system_id']
-    json[:system_id] = config['system_id']
+#
+# load system_id from external file,  but it's not required if you
+# just want a JSON representation of your packages.  it can be set by
+# config management, etc.
+#
+config_file = '/etc/dpkginv.conf'
+if File.exists?(config_file)
+    config = YAML.load_file(config_file)
+    unless config == false || config['system_id'].nil?
+        json[:system_id] = config['system_id']
+    end
 end
 
 puts JSON.pretty_generate(json)
