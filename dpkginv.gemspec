@@ -13,5 +13,4 @@ Gem::Specification.new do |s|
     s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
 
     s.add_runtime_dependency    'ohai', '~> 6.14'
-    s.add_runtime_dependency    'open4', '~> 1.3'
 end
