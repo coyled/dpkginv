@@ -1,7 +1,7 @@
 require 'rake'
 Gem::Specification.new do |s|
     s.name          = 'dpkginv'
-    s.version       = '0.1.1'
+    s.version       = '0.1.2'
     s.summary       = 'Debian/Ubuntu package inventory tools'
     s.description   = 'Read Debian/Ubuntu package inventory, emit as JSON'
     s.authors       = ['Dave Coyle']
