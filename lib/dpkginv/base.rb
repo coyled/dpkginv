@@ -1,4 +1,3 @@
-require 'bundler/setup'
 require 'ohai'
 require 'json'
 require 'yaml'
