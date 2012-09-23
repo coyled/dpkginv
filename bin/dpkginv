@@ -12,8 +12,6 @@ o = Ohai::System.new
 # ohai has dozens of plugins; let's only load the ones we need...
 o.require_plugin('linux/lsb')
 o.require_plugin('linux/hostname')
-o.require_plugin('os')
-o.require_plugin('platform')
 o.require_plugin('kernel')
 o.require_plugin('dpkg')
 
@@ -29,9 +27,11 @@ end
 
 json = {
     :fqdn   =>  o[:fqdn],
-    :os     =>  {
-        :distro     =>  o[:platform],
-        :codename   =>  o[:lsb][:codename]
+    :lsb     =>  {
+        :id             =>  o[:lsb][:id],
+        :release        =>  o[:lsb][:release],
+        :codename       =>  o[:lsb][:codename],
+        :description    =>  o[:lsb][:description]
     },
     :kernel =>  {
         :release    =>  o[:kernel][:release],
