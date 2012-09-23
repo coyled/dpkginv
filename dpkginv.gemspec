@@ -8,11 +8,10 @@ Gem::Specification.new do |s|
     s.email         = 'hello@coyled.com'
     s.homepage      = 'http://coyled.com/dpkginv'
     s.license       = 'MIT'
-    s.files         = FileList[
-                        'bin/dpkginv',
-                        'plugins/ohai/*'
-                      ].to_a
-    s.bindir        = 'bin'
-    s.executables   << 'dpkginv'
-    s.add_runtime_dependency    'ohai', '~> 0.6'
+    s.files         = `git ls-files`.split("\n")
+    s.test_files    = `git ls-files -- test/*`.split("\n")
+    s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
+
+    s.add_runtime_dependency    'ohai', '~> 6.14'
+    s.add_runtime_dependency    'open4', '~> 1.3'
 end
