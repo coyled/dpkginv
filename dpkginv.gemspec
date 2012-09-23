@@ -1,12 +1,12 @@
 require 'rake'
 Gem::Specification.new do |s|
     s.name          = 'dpkginv'
-    s.version       = '0.1.0.pre.1'
+    s.version       = '0.1.0'
     s.summary       = 'Debian/Ubuntu package inventory tools'
-    s.description   = 'Pre-release; don\'t use this yet.'
+    s.description   = 'Read OS package inventory, emit JSON'
     s.authors       = ['Dave Coyle']
     s.email         = 'hello@coyled.com'
-    s.homepage      = 'http://coyled.com/dpkginv'
+    s.homepage      = 'https://github.com/coyled/dpkginv'
     s.license       = 'MIT'
     s.files         = `git ls-files`.split("\n")
     s.test_files    = `git ls-files -- test/*`.split("\n")
