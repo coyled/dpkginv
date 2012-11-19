@@ -16,4 +16,5 @@ on FQDN, create a file `/etc/dpkginv.conf` containing:
     system_id: <some_id_for_this_host>
 
 You could, for example, set this to the value of
-`/sys/class/dmi/id/product_uuid`
+`/sys/class/dmi/id/product_uuid` or
+`/sys/hypervisor/uuid`
